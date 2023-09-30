@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Text Input</title>
+</head>
+<body>
+    <h1>Enter Something:</h1>
+    <form method="POST">
+        <input type="text" name="user_input" value="{{ user_input }}" placeholder="Type something...">
+        <input type="submit" value="Submit">
+    </form>
+    <p>You entered: {{ user_input }}</p>
+</body>
+</html>
