@@ -27,24 +27,26 @@ def index():
     if request.method == "POST":
         user_input = request.form["user_input"]
 
-    headlines = get_google_news_headlines(googlenews, user_input)
+        headlines = get_google_news_headlines(googlenews, user_input)
 
-    if headlines:
-        top_n = "\nTop {} headlines pulled...".format(len(headlines))
+        if headlines:
+            top_n = "\nTop {} headlines pulled...".format(len(headlines))
 
-        sentiments, avg_sentiment, maxSentiment, maxSentimentIdx, minSentiment, minSentimentIdx = report_sentiment(sentimentizer, headlines)
+            sentiment_values = report_sentiment(sentimentizer, headlines)
 
-        high_text = '\nHighest rated sentiment of "{}" given to the following headline: \n"{}"'.format(maxSentiment, headlines[maxSentimentIdx])
-        low_text = '\nLowest rated sentiment of "{}" given to the following headline: \n"{}"'.format(minSentiment, headlines[minSentimentIdx])
+            print('HERE!!!!!!!!!!!!!!:', sentiment_values)
 
-        df = pd.DataFrame({'Sentiments': sentiments, 'Headlines': headlines})
-        df.sort_values(by='Sentiments', inplace=True)
+            high_text = '\nHighest rated sentiment of "{}" given to the following headline: \n"{}"'.format(sentiment_values['maxSentiment'], headlines[sentiment_values['maxSentimentIdx']])
+            low_text = '\nLowest rated sentiment of "{}" given to the following headline: \n"{}"'.format(sentiment_values['minSentiment'], headlines[sentiment_values['minSentimentIdx']])
 
-        summary = summarize_headlines(summarizer, df['Headlines'])
+            df = pd.DataFrame({'Sentiments': sentiment_values['sentiments'], 'Headlines': headlines})
+            df.sort_values(by='Sentiments', inplace=True)
 
-    else:
-        top_n = "No headlines found."
-        high_text, low_text, summary = "", "", ""
+            summary = summarize_headlines(summarizer, df['Headlines'])
+
+        else:
+            top_n = "No headlines found."
+            high_text, low_text, summary = "", "", ""
     
     return render_template("index.html", user_input=user_input)
 

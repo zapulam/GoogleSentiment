@@ -29,15 +29,22 @@ def report_sentiment(sentimentizer, headlines):
             if sentiment['label'] == 'NEGATIVE':
                 sentiments[i]['score'] = sentiments[i]['score'] * -1
 
-        avg_sentiment = sum(sentiment['score'] for sentiment in sentiments) / len(sentiments)
+        sentiments = [sentiment['score'] for sentiment in sentiments]
 
-        maxSentiment = round(max(sentiments, key=lambda x:x['score'])['score'], 5)
-        maxSentimentIdx = max(range(len(sentiments)), key=lambda i: sentiments[i].get('score', 0))
+        avg_sentiment = sum(sentiments) / len(sentiments)
 
-        minSentiment = round(min(sentiments, key=lambda x:x['score'])['score'], 5)
-        minSentimentIdx = min(range(len(sentiments)), key=lambda i: sentiments[i].get('score', 0))
+        maxSentiment = round(max(sentiments))
+        maxSentimentIdx = sentiments.index(maxSentiment)
 
-        return sentiments, avg_sentiment, maxSentiment, maxSentimentIdx, minSentiment, minSentimentIdx
+        minSentiment = round(min(sentiments))
+        minSentimentIdx = sentiments.index(minSentiment)
+
+        return {'sentiments': sentiments,
+                'avg_sentiment': avg_sentiment,
+                'maxSentiment': maxSentiment,
+                'maxSentimentIdx': maxSentimentIdx,
+                'minSentiment': minSentiment,
+                'minSentimentIdx': minSentimentIdx}
 
     except Exception as e:
         return str(e)
