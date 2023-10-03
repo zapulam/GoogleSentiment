@@ -6,6 +6,7 @@ from flask import Flask, render_template, request
 
 from functions import *
 
+
 # Create a Flask web app instance
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ googlenews.enableException(True)
 # Initialize text models
 sentimentizer = pipeline("sentiment-analysis", model ='distilbert-base-uncased-finetuned-sst-2-english')
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+
 
 # Define a route for the root URL ("/")
 @app.route("/", methods=["GET", "POST"])
@@ -42,10 +44,10 @@ def index():
 
     else:
         top_n = "No headlines found."
-        high_text, low_text = "", ""
-        summary = ""
+        high_text, low_text, summary = "", "", ""
     
     return render_template("index.html", user_input=user_input)
+
 
 # Run the app if this script is executed
 if __name__ == "__main__":
