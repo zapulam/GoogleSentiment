@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Flask Text Input</title>
+    <title class="main-title">GoogleSentiment</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-    <h1>Enter Something:</h1>
+    <header>
+        <h1 class="header-main">Welcome to GoogleSentiment</h1>
+        <h3 class="header-sub">Determining Google News sentiment and summarizing topics</h3>
+    </header>
+
     <form method="POST">
-        <input type="text" name="user_input" value="{{ user_input }}" placeholder="Type something...">
+        <input type="text" name="user_input" value="{{ user_input }}"  placeholder="Search topic...">
         <input type="submit" value="Submit">
     </form>
+
     <p>You entered: {{ user_input }}</p>
+
 </body>
 </html>
