@@ -13,11 +13,18 @@
     </header>
 
     <form method="POST">
-        <input type="text" name="user_input" value="{{ user_input }}" placeholder="Search topic...">
+        <input type="text" name="user_input" placeholder="Search topic...">
         <input type="submit" value="Submit">
     </form>
 
-    <p>You entered: {{ user_input }}</p>
+    <p>{{ topic_text }}</p>
+
+    <p>{{ top_n_text }}</p>
+
+    <p>{{ high_text }}</p>
+    <p>{{ low_text }}</p>
+
+    <p>{{ summary_text }}</p>
 
 </body>
 </html>

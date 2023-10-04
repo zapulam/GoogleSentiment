@@ -33,10 +33,10 @@ def report_sentiment(sentimentizer, headlines):
 
         avg_sentiment = sum(sentiments) / len(sentiments)
 
-        maxSentiment = round(max(sentiments))
+        maxSentiment = max(sentiments)
         maxSentimentIdx = sentiments.index(maxSentiment)
 
-        minSentiment = round(min(sentiments))
+        minSentiment = min(sentiments)
         minSentimentIdx = sentiments.index(minSentiment)
 
         return {'sentiments': sentiments,
